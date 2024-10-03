@@ -40,13 +40,13 @@ After the build is successful, you can run the application using the following c
 ```bash
 mvn spring-boot:run
 ```
-The application will start on port 8080 by default.
+The application will start on port 4400 by default.
 
 ### 4. Test the Endpoints
 Create Training Center: You can use Postman or any API testing tool to send a POST request to:
 
 ```bash
-POST http://localhost:8080/api/train
+POST http://localhost:4400/api/train
 ```
 Example JSON payload for creating a new training center:
 
@@ -71,6 +71,6 @@ The API will validate the CenterName, Email, and Phone fields. If everything is 
 Get All Training Centers: You can retrieve all the training centers by sending a GET request to:
 
 ```bash
-GET http://localhost:8080/api/train
+GET http://localhost:4400/api/train
 ```
 This will return a list of all training centers stored .
