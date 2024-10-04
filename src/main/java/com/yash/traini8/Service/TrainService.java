@@ -23,4 +23,5 @@ public class TrainService {
     public List<TrainingCenter> getCenters() {
         return trainRepo.findAll();
     }
+    
 }

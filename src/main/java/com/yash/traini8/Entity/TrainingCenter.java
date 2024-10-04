@@ -3,20 +3,43 @@ package com.yash.traini8.Entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Embedded;
+
 import java.util.List;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Document(collection = "training_centers")  // This annotation defines the MongoDB collection name
 public class TrainingCenter {
 
     @Id  // MongoDB's unique identifier
     private String id;
+    
+    @NotBlank(message = "CenterName is required")
+    @Size(max = 40, message = "CenterName must be less than 40 characters")
     private String centerName;
+    
+    @NotBlank(message = "CenterCode is required")
+    @Pattern(regexp = "^[a-zA-Z0-9]{12}$", message = "CenterCode must be exactly 12 alphanumeric characters")
     private String centerCode;
+    
+    @Embedded
     private Address address;
+    
     private int studentCap;
+    
     private List<String> coursesOffered;
+    
     private Long createdOn;
+    
+    @Email(message = "ContactEmail should be a valid email address")
     private String contactEmail;
+    
+    @NotBlank(message = "ContactPhone is required")
+    @Pattern(regexp = "^[0-9]{10}$", message = "ContactPhone must be a valid 10-digit phone number")
     private String contactPhone;
 
     public TrainingCenter(String id, String centerName, String centerCode, Address address, int studentCap,
@@ -107,9 +130,16 @@ public class TrainingCenter {
 
     // Address class as a static inner class
     public static class Address {
+    	@NotBlank(message = "Detailed Address is required")
         private String detailedAddress;
+    	
+    	@NotBlank(message = "City is required")
         private String city;
+    	
+    	@NotBlank(message = "State is required")
         private String state;
+    	
+    	@NotBlank(message = "Pincode is required")
         private String pincode;
 
         public Address(String detailedAddress, String city, String state, String pincode) {

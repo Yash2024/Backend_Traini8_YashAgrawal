@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,31 +27,9 @@ public class TrainRest {
     private TrainService trainService;
 
     @PostMapping
-    public ResponseEntity<Object> createTrainingCenter(@RequestBody TrainingCenter trainingCenter) {
+    public ResponseEntity<Object> createTrainingCenter(@Valid @RequestBody TrainingCenter trainingCenter) {
     	
-    	if (trainingCenter.getCenterName().length() > 40) {
-            return new ResponseEntity<>(
-                "CenterName must be less than 40 characters",
-                HttpStatus.BAD_REQUEST
-            );
-        }
-    	
-    	if (trainingCenter.getCenterCode().length() !=12) {
-            return new ResponseEntity<>(
-                "CenterCode must be of 12 characters",
-                HttpStatus.BAD_REQUEST
-            );
-        }
-    	
-    	String email = trainingCenter.getContactEmail();
-        if (email != null && !isValidEmail(email)) {
-            return new ResponseEntity<>("Invalid email format", HttpStatus.BAD_REQUEST);
-        }
 
-        String phone = trainingCenter.getContactPhone();
-        if (phone != null && !isValidPhoneNumber(phone)) {
-            return new ResponseEntity<>("Invalid phone number. It should contain 10 digits.", HttpStatus.BAD_REQUEST);
-        }
         trainService.addCenter(trainingCenter);
         return new ResponseEntity<>(trainingCenter, HttpStatus.CREATED);
     }
@@ -73,4 +54,6 @@ public class TrainRest {
         Matcher matcher = pattern.matcher(phone);
         return matcher.matches();
     }
+    
+   
 }
