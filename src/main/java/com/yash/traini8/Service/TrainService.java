@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.yash.traini8.Entity.TrainingCenter;
 import com.yash.traini8.Repository.TrainRepository;
@@ -23,5 +24,7 @@ public class TrainService {
     public List<TrainingCenter> getCenters() {
         return trainRepo.findAll();
     }
-    
+    public void deleteAllCenters() {
+        trainRepo.deleteAll();
+    }
 }
