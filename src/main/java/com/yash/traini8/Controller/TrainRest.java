@@ -41,9 +41,4 @@ public class TrainRest {
     }
     
    
-    @DeleteMapping("/deleteAll")
-    public ResponseEntity<String> deleteAllTrainingCenters() {
-        trainService.deleteAllCenters();
-        return new ResponseEntity<>("All training centers deleted successfully", HttpStatus.OK);
-    }
 }
