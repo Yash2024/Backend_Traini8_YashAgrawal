@@ -28,7 +28,7 @@ public class TrainRest {
     private TrainService trainService;
 
     @PostMapping
-    public ResponseEntity<Object> createTrainingCenter(@Valid @RequestBody TrainingCenter trainingCenter) {
+    public ResponseEntity<TrainingCenter> createTrainingCenter(@Valid @RequestBody TrainingCenter trainingCenter) {
     
         trainService.addCenter(trainingCenter);
         return new ResponseEntity<>(trainingCenter, HttpStatus.CREATED);
@@ -41,4 +41,9 @@ public class TrainRest {
     }
     
    
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<String> deleteAllTrainingCenters() {
+        trainService.deleteAllCenters();
+        return new ResponseEntity<>("All training centers deleted successfully", HttpStatus.OK);
+    }
 }

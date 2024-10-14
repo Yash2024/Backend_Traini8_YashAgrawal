@@ -24,4 +24,7 @@ public class TrainService {
     public List<TrainingCenter> getCenters() {
         return trainRepo.findAll();
     }
+    public void deleteAllCenters() {
+        trainRepo.deleteAll();
+    }
 }
